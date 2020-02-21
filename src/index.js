@@ -50,7 +50,7 @@ class Library {
     let maxScannedBooks = nbScanDays * this.dailyShippedBooks;
     const unScannedBooks = this.allBooks.filter(b => !b.scanned);
     // Sort the books to get the best first
-    quickSort(unScannedBooks, true, 'score');
+    // quickSort(unScannedBooks, true, 'score');
     for (let index = 0; index < unScannedBooks.length; index++) {
       const book = unScannedBooks[index];
       if (!book.scanned) {
@@ -69,7 +69,7 @@ class Library {
     let maxScannedBooks = nbScanDays * this.dailyShippedBooks;
     const unScannedBooks = this.allBooks.filter(b => !b.scanned);
     // Sort the books to get the best first
-    quickSort(unScannedBooks, true, 'score');
+    // quickSort(unScannedBooks, true, 'score');
     for (let index = 0; index < unScannedBooks.length; index++) {
       const book = unScannedBooks[index];
       if (!book.scanned) {
@@ -128,6 +128,7 @@ const lineProcessFct = (line) => {
         // Add new Book into library
         library.addBook(allBooks[bookID]);
       }
+      quickSort(library.allBooks, true, 'score');
       // Go to next library
       libIndex++;
     }
@@ -236,7 +237,6 @@ const findSolutionMaxScore =  () => {
   }
   let remainLibs = allLibraries.filter(l => l.maxScores > 0 && !l.signed);
   // quickSort(remainLibs, false, "signupTime");
-  quickSort(remainLibs, false, "signupTime");
   quickSort(remainLibs, true, "maxScores");
   let remainDays = totalNbDays;
   while (remainLibs.length) {
@@ -249,7 +249,7 @@ const findSolutionMaxScore =  () => {
         remainLibs[index].getMaxScore(remainDays);
       }
       remainLibs = remainLibs.filter(l => l.maxScores > 0 && !l.signed);
-      quickSort(remainLibs, false, "signupTime");
+      // quickSort(remainLibs, false, "signupTime");
       quickSort(remainLibs, true, "maxScores");
     }
   }
@@ -267,7 +267,8 @@ const endProcessFct = () => {
   // console.log(allBooks);
   // console.log(allLibraries);
   // findSolutionSignupTime();
-  // findSolutionMaxScore();
+  quickSort(allLibraries, false, "signupTime");
+  findSolutionMaxScore();
   // findSolutionNumberOfBooks();
   // findSolutionRandom();
   // findSolutionDailyShippedBooks();
